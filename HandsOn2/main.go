@@ -13,12 +13,20 @@ type secretagent struct {
 	l2kill bool
 }
 
-func (p person) pSpeak() {
+type human interface {
+	speak()
+}
+
+func (p person) speak() {
 	fmt.Println(p.fname, p.lname, "says how r u doing?")
 }
 
-func (sa secretagent) saSpeak() {
+func (sa secretagent) speak() {
 	fmt.Println("secret agent", sa.p.fname, sa.p.lname, "has l2kill", sa.l2kill)
+}
+
+func printHuman(h human) {
+	h.speak()
 }
 
 func main() {
@@ -29,7 +37,7 @@ func main() {
 		person{"James", "Bond"},
 		true,
 	}
-	p.pSpeak()
-	s.saSpeak()
-	s.p.pSpeak()
+	printHuman(p)
+	printHuman(s)
+	printHuman(s.p)
 }
